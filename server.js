@@ -16,7 +16,7 @@ const dbConfig = {
     queueLimit: 0,
 };
 
-// intialize Express app
+//intialize Express app
 const app = express();
 // helps app to read JSON
 app.use(express.json());
