@@ -3,12 +3,6 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 const port = 3000;
-const cors = require("cors");
-const allowedOrigins = [
-    "http://localhost:3000",
-// "https://YOUR-frontend.vercel.app", // add later
-// "https://YOUR-frontend.onrender.com" // add later
-];
 
 // database config info
 const dbConfig = {
@@ -24,8 +18,13 @@ const dbConfig = {
 
 //intialize Express app
 const app = express();
-// helps app to read JSON
-app.use(express.json());
+
+const cors = require("cors");
+const allowedOrigins = [
+    "http://localhost:3000",
+// "https://YOUR-frontend.vercel.app", // add later
+// "https://YOUR-frontend.onrender.com" // add later
+];
 
 app.use(
     cors({
@@ -43,6 +42,8 @@ app.use(
     })
 );
 
+// helps app to read JSON
+app.use(express.json());
 
 // start the server
 app.listen(port, () => {
