@@ -22,7 +22,8 @@ const app = express();
 const cors = require("cors");
 const allowedOrigins = [
     "http://localhost:3000",
-    "https://xf-py-card-management-app.vercel.app/"
+    "https://xf-py-card-management-app.vercel.app/",
+    "https://onlinecardappwebservice-ho00.onrender.com/"
 ];
 
 app.use(
