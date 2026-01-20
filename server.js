@@ -51,11 +51,11 @@ app.listen(port, () => {
 });
 
 
-// Example Route: Get all cards
+// Route: Get all cards
 app.get('/allcards', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);
-        const [rows] = await connection.execute('SELECT * FROM defaultdb.cards');
+        const [rows] = await connection.execute('SELECT * FROM cards');
         res.json(rows);
     } catch (err) {
         console.error(err);
@@ -63,6 +63,7 @@ app.get('/allcards', async (req, res) => {
     }
 });
 
+// Route: Add card
 app.post('/addcard', async (req, res) => {
     const { card_name, card_pic } = req.body;
     try {
@@ -72,5 +73,28 @@ app.post('/addcard', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({message: 'Server error - could not add card ' + card_name});
+    }
+});
+
+// Route: Delete card
+app.delete('/deletecard/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+
+        const [result] = await connection.execute(
+            'DELETE FROM cards WHERE id = ?',
+            [id]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Card not found' });
+        }
+
+        res.json({ message: `Card ${id} deleted successfully` });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error deleting card' });
     }
 });
