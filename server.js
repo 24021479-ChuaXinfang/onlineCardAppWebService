@@ -128,7 +128,7 @@ app.post('/addcard', requireAuth, async (req, res) => {
 });
 
 // Route: Delete card
-app.delete('/deletecard/:id', async (req, res) => {
+app.delete('/deletecard/:id', requireAuth, async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -151,7 +151,7 @@ app.delete('/deletecard/:id', async (req, res) => {
 });
 
 // Route: Update card
-app.put('/updatecard/:id', async (req, res) => {
+app.put('/updatecard/:id', requireAuth, async (req, res) => {
     const { id } = req.params;
     const { card_name, card_pic } = req.body;
 
